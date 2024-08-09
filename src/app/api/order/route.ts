@@ -14,7 +14,7 @@ export async function POST(request: NextRequest, res: NextResponse) {
         if (!user) await User.post({ fullname, dni, phone })
         const [ operation ] = await Operation.search("reference", reference)
         if (operation) throw new Error("La referencia ya ha sido registrada")
-        await Operation.post({ mount, reference, dni })
+        await Operation.post({ mount, reference, dni, delivery:false })
         const url = new URL(`/shipment?reference=${reference}`, request.url)
         return NextResponse.redirect(url, { status: 303 })
     }catch(e:any){
