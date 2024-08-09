@@ -8,9 +8,8 @@ import { redirect } from "next/navigation";
 
 export default async function Home({ searchParams }:{ searchParams: { reference: string } }) {
   const { reference } = searchParams;
-
+  if( !reference ) redirect("/");
   const [operation] = await Operation.search("reference", reference);
-
   if( !operation ) redirect("/");
 
   return (
